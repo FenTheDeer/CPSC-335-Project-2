@@ -1,38 +1,43 @@
 import itertools
 
 def stock_maximization (M, combos, values, stock):
+    working_stock =[]
+    working_combos =[]
+    working_values =[]
     best = None
+    y=0
     for candidate in (combos):
-        if verify_combinations(M, combos, candidate, values, stock):
-              if best is None or total_value(candidate) > total_value(best):
-                    best = candidate
-    return best
+        # print(candidate)
+        verify_combinations(M, candidate, values, stock, working_stock, working_combos, working_values)
+    
+    # print(working_values)
+    # print(working_stock)
 
-def verify_combinations(M, items, candidate_items, values, stock):
+    for x in working_combos:
+        # print(x)
+        if best == None or ((working_values[y] > working_values[best]) or (working_values[y] < working_values[best] and working_stock[y] > working_stock[best])):
+            best = y
+        y=1+y
+    return working_stock[best], working_values[best]
+
+def verify_combinations(M, candidate_items, values, stock, working_stock, working_combos, working_values):
     total_price = 0
+    total_stock = 0
     for item in candidate_items:
-        print(candidate_items)
-        total_price = 0
-        for x in candidate_items:
-            # print(x)
-            location = stock.index(item)
-            total_price += values[location]
-            print(total_price)
+        location = stock.index(item)
+        total_price += values[location]
+        total_stock += item
 
-    # if total_price <= M:
-    #     return True
-    # else:
-    #     return False
+    if total_price <= M:
+        working_combos.append(candidate_items)
+        working_stock.append(total_stock)
+        working_values.append(total_price)
 
-def total_value(candidate_items):
-    total_value = 0
-    for item in candidate_items:
-        total_value += [item, 1]
-    return total_value    
 
+#Testing example testcases
 N = 4 
-Stocks_and_values = [ [1, 2], [4, 3], [5, 6], [6, 7] ]
-Amount = 12
+Stocks_and_values = [ [3, 2], [6, 3], [5, 3], [6, 7] ]
+Amount = 10
 
 stock=[]
 values=[]
@@ -45,9 +50,8 @@ for x in Stocks_and_values:
 for r in range(1, len(stock) + 1):
       possible_combos.extend(itertools.combinations(stock, r))
 
-print(possible_combos)
+# print(possible_combos)
 
-stock_maximization(Amount, possible_combos, values, stock)
+stock, values = stock_maximization(Amount, possible_combos, values, stock)
 
-#[0] is the number of stocks, [1] is the value for the stocks
-#sample output should be 11, 1+4+6 at index 0,1,3, sum of the values at these indices = 2+3+7<=12
+print("The best bang for your buck would be {} stocks for ${}.".format(stock, values))
