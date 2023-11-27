@@ -1,7 +1,6 @@
-# import itertools not used as well as combo
 
 
-def stock_maximization(M, values, stock):
+def stock_maximization(M, max_value, values, stock):
     memo = {}
 
     def dp(index, remaining_money):
@@ -19,9 +18,12 @@ def stock_maximization(M, values, stock):
         if current_stock <= remaining_money:
             include_stock, include_value = dp(index - 1, remaining_money - current_stock)
             include_value += values[index - 1]
+            include_value -= 1       # <- Main area change
+            include_stock -= 0.333   # <- Main area change
 
             # Choose the option with higher value or higher stock if values are equal
             if include_value > exclude_value or (include_value == exclude_value and include_stock > exclude_stock):
+                # current_stock += include_stock <- Might nor might not be needed
                 result = include_stock + current_stock, include_value
             else:
                 result = exclude_stock, exclude_value
@@ -38,11 +40,13 @@ def stock_maximization(M, values, stock):
 
 
 N = 4
-Stocks_and_values = [[3, 2], [6, 3], [5, 3], [6, 7]]
-Amount = 10
+Stocks_and_values = [[1, 2], [4, 3], [5, 6], [6, 7]]
+Amount = 12
+
 
 stock = [x[0] for x in Stocks_and_values]
 values = [x[1] for x in Stocks_and_values]
+
 
 result_stock, result_values = stock_maximization(Amount, None, values, stock)
 
