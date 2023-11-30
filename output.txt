@@ -1,0 +1,112 @@
+Test case 1
+
+Number of Stocks: 
+4
+
+Stocks and values: 
+[3, 2]
+[4, 3]
+[5, 3]
+[6, 7]
+
+Allowance: 
+10
+
+The maximum amount of stocks that can be purchased with the current allowance from the list of stocks is: 12
+
+----------------------------------
+
+Test case 2
+
+Number of Stocks:
+4
+
+Stocks and values:
+[1, 2]
+[4, 3]
+[5, 6]
+[6, 7]
+
+Allowance:
+12
+
+The maximum amount of stocks that can be purchased with the current allowance from the list of stocks is: 11
+
+----------------------------------
+
+Test case 3
+
+Number of Stocks:
+5
+
+Stocks and values:
+[3, 2]
+[4, 3]
+[1, 4]
+[5, 3]
+[6, 7]
+
+Allowance:
+9
+
+The maximum amount of stocks that can be purchased with the current allowance from the list of stocks is: 12
+
+----------------------------------
+
+Test case 4
+
+Number of Stocks:
+3
+
+Stocks and values:
+[1, 4]
+[5, 3]
+[6, 7]
+
+Allowance:
+9
+
+The maximum amount of stocks that can be purchased with the current allowance from the list of stocks is: 6
+
+----------------------------------
+
+Test case 5
+
+Number of Stocks:
+6
+
+Stocks and values:
+[2, 7]
+[1, 1]
+[3, 4]
+[5, 4]
+[4, 6]
+[6, 2]
+
+Allowance:
+7
+
+The maximum amount of stocks that can be purchased with the current allowance from the list of stocks is: 12
+
+----------------------------------
+
+Test case 6
+
+Number of Stocks:
+7
+
+Stocks and values:
+[3, 2]
+[1, 2]
+[4, 3]
+[4, 6]
+[4, 6]
+[6, 2]
+[10, 1]
+
+Allowance:
+7
+
+The maximum amount of stocks that can be purchased with the current allowance from the list of stocks is: 20
+
+----------------------------------
