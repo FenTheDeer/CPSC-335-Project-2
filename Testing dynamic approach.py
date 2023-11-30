@@ -1,53 +1,28 @@
+def max_stocks(N, Stocks_and_values, amount):
+    # Create a 2D array to store results of sub_problems
+    dp = [[0] * (amount + 1) for _ in range(N + 1)]
 
-
-def stock_maximization(M, max_value, values, stock):
-    memo = {}
-
-    def dp(index, remaining_money):
-        if index == 0 or remaining_money == 0:
-            return 0, 0
-
-        if (index, remaining_money) in memo:
-            return memo[(index, remaining_money)]
-
-        # Case 1: Exclude the current stock
-        exclude_stock, exclude_value = dp(index - 1, remaining_money)
-
-        # Case 2: Include the current stock if it fits within the budget
-        current_stock = stock[index - 1]
-        if current_stock <= remaining_money:
-            include_stock, include_value = dp(index - 1, remaining_money - current_stock)
-            include_value += values[index - 1]
-            include_value -= 1       # <- Main area change
-            include_stock -= 0.333   # <- Main area change
-
-            # Choose the option with higher value or higher stock if values are equal
-            if include_value > exclude_value or (include_value == exclude_value and include_stock > exclude_stock):
-                # current_stock += include_stock <- Might nor might not be needed
-                result = include_stock + current_stock, include_value
+    #print(N)
+    #print(Stocks_and_values)
+    #print(amount)
+    # Fill the dp array using top-down dynamic programming
+    for i in range(1, N + 1):
+        for j in range(amount + 1):
+            # If the current stock can be included
+            if Stocks_and_values[i - 1][1] <= j:
+                dp[i][j] = max(dp[i - 1][j], dp[i - 1][ j - Stocks_and_values[i - 1][1]] + Stocks_and_values[i - 1][0])
             else:
-                result = exclude_stock, exclude_value
-        else:
-            result = exclude_stock, exclude_value
+                dp[i][j] = dp[i - 1][j]
+                print(dp[i][j])  # To see the math in value
+    # Maximum number of stocks is stored in dp[N][amount]
+    return dp[N][amount]
 
-        memo[(index, remaining_money)] = result
-        return result
-
-    stock, values = dp(len(stock), M)
-    return stock, values
-
-# Testing example test cases
-
-
+# Sample input
 N = 4
-Stocks_and_values = [[1, 2], [4, 3], [5, 6], [6, 7]]
-Amount = 12
+Stocks_and_values = [[3, 2], [4, 3], [5, 3], [6, 7]]
+amount = 10
 
+# Call the function with the sample input
+stock = max_stocks(N, Stocks_and_values, amount)
 
-stock = [x[0] for x in Stocks_and_values]
-values = [x[1] for x in Stocks_and_values]
-
-
-result_stock, result_values = stock_maximization(Amount, None, values, stock)
-
-print("The best bang for your buck would be {} stocks for ${}.".format(result_stock, result_values))
+print("The best bang for your buck would be {} stocks for ${}.".format(stock, amount))
